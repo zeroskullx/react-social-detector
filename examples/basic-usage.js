@@ -3,78 +3,130 @@
 // For Node.js (CommonJS)
 const {
 	quickReactSocialDetector,
-	detectMultipleSocialNetworks,
-	getSupportedPlatforms,
+	ReactSocialDetector,
+	reactSocialDetector,
+	SocialNetworkUtils,
+	SOCIAL_NETWORKS_PATTERNS,
 } = require('react-social-detector')
 
 // For ES Modules
-// import { quickReactSocialDetector, detectMultipleSocialNetworks, getSupportedPlatforms } from 'react-social-detector';
+// import { quickReactSocialDetector, ReactSocialDetector, reactSocialDetector, SocialNetworkUtils, SOCIAL_NETWORKS_PATTERNS } from 'react-social-detector';
 
-console.log('🔍 Detect Social Network - Basic Usage Examples\n')
+console.log('🔍 React Social Detector - Basic Usage Examples\n')
 
-// Example 1: Single URL detection
-console.log('📍 Example 1: Single URL Detection')
+// Example 1: Quick detection with standalone function
+console.log('📍 Example 1: Quick Detection')
 const singleUrl = 'https://youtube.com/@username'
 const result = quickReactSocialDetector(singleUrl)
 console.log(`URL: ${singleUrl}`)
 console.log('Result:', result)
 console.log('')
 
-// Example 2: Multiple URLs detection
-console.log('📍 Example 2: Multiple URLs Detection')
+// Example 2: Using the detector instance
+console.log('📍 Example 2: Using Detector Instance')
 const urls = [
 	'https://youtube.com/@creator',
 	'https://instagram.com/user',
 	'https://twitter.com/handle',
 	'https://linkedin.com/in/profile',
-	'https://invalid-url.com',
+	'https://github.com/developer',
 ]
 
-const multipleResults = detectMultipleSocialNetworks(urls)
-console.log('URLs:', urls)
-console.log('Results:', multipleResults)
-console.log('')
-
-// Example 3: Get supported platforms
-console.log('📍 Example 3: Supported Platforms')
-const platforms = getSupportedPlatforms()
-console.log(`Total supported platforms: ${platforms.length}`)
-console.log('Platforms:', platforms.slice(0, 10).join(', '), '...')
-console.log('')
-
-// Example 4: Validation examples
-console.log('📍 Example 4: URL Validation Examples')
-const testUrls = [
-	'https://youtube.com/@validuser',
-	'https://youtube.com/invalidpath',
-	'https://instagram.com/user123',
-	'https://notasocialnetwork.com/user',
-]
-
-testUrls.forEach((url) => {
-	const detection = quickReactSocialDetector(url)
+urls.forEach((url) => {
+	const detection = reactSocialDetector.detect(url)
 	console.log(
-		`${url} -> ${detection ? `✅ ${detection.name}` : '❌ Not detected'}`
+		`${url} -> ${detection.isValid ? `✅ ${detection.displayName}` : '❌ Unknown'}`
 	)
 })
 console.log('')
 
-// Example 5: Extract username (if available)
-console.log('📍 Example 5: Username Extraction')
-const urlsWithUsernames = [
-	'https://github.com/username',
-	'https://twitter.com/handle',
-	'https://instagram.com/profile',
+// Example 3: Get supported platforms using utils
+console.log('📍 Example 3: Supported Platforms')
+const platforms = SocialNetworkUtils.getAllPlatforms()
+console.log(`Total supported platforms: ${platforms.length}`)
+console.log(
+	'First 10 platforms:',
+	platforms
+		.slice(0, 10)
+		.map((p) => p.displayName)
+		.join(', ')
+)
+console.log('')
+
+// Example 4: URL validation and username extraction
+console.log('📍 Example 4: URL Validation & Username Extraction')
+const testUrls = [
+	'https://youtube.com/@validuser',
+	'https://instagram.com/user123',
+	'https://github.com/developer',
+	'https://notasocialnetwork.com/user',
 ]
 
-urlsWithUsernames.forEach((url) => {
-	const detection = quickReactSocialDetector(url)
-	if (detection) {
-		// Simple username extraction from URL
-		const username = url.split('/').pop()
-		console.log(`${detection.name}: ${username}`)
+testUrls.forEach((url) => {
+	const detection = reactSocialDetector.detect(url)
+	if (detection.isValid) {
+		const username = reactSocialDetector.extractUsername(url)
+		console.log(`✅ ${detection.displayName}: ${username || 'N/A'}`)
+	} else {
+		console.log(`❌ ${url} -> Not detected`)
 	}
 })
 console.log('')
 
+// Example 5: Generate profile URLs
+console.log('📍 Example 5: Generate Profile URLs')
+const usernames = [
+	{ platform: 'instagram', username: 'myprofile' },
+	{ platform: 'youtube', username: 'mychannel' },
+	{ platform: 'github', username: 'mycode' },
+]
+
+usernames.forEach(({ platform, username }) => {
+	const profileUrl = reactSocialDetector.generateProfileUrl(platform, username)
+	console.log(`${platform}: ${profileUrl}`)
+})
+console.log('')
+
+// Example 6: Check platform support
+console.log('📍 Example 6: Platform Support Checks')
+const platformsToCheck = ['instagram', 'tiktok', 'unknown-platform']
+
+platformsToCheck.forEach((platform) => {
+	const isSupported = SocialNetworkUtils.isPlatformSupported(platform)
+	const displayName = isSupported
+		? SocialNetworkUtils.getPlatformDisplayName(platform)
+		: 'N/A'
+	console.log(
+		`${platform}: ${isSupported ? `✅ ${displayName}` : '❌ Not supported'}`
+	)
+})
+console.log('')
+
+// Example 7: Bulk detection with instance
+console.log('📍 Example 7: Bulk Detection')
+const bulkUrls = [
+	'https://twitter.com/user1',
+	'https://instagram.com/user2',
+	'invalid-url',
+	'https://github.com/user3',
+]
+
+const detector = new ReactSocialDetector()
+bulkUrls.forEach((url, index) => {
+	const result = detector.detect(url)
+	console.log(`${index + 1}. ${url}`)
+	console.log(`   Platform: ${result.platform}`)
+	console.log(`   Valid: ${result.isValid}`)
+	console.log(`   Confidence: ${result.confidence}`)
+	console.log('')
+})
+
+// Example 8: Pattern information
+console.log('📍 Example 8: Pattern Information')
+const availablePatterns = Object.keys(SOCIAL_NETWORKS_PATTERNS)
+console.log(`Available patterns: ${availablePatterns.length}`)
+console.log('Sample patterns:', availablePatterns.slice(0, 8).join(', '))
+console.log('')
+
 console.log('✨ All examples completed!')
+console.log('📚 For React usage examples, see the React hooks documentation.')
