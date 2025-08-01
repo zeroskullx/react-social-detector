@@ -1,4 +1,4 @@
-# React Social Detect
+# React Social Detector
 
 A modern and comprehensive TypeScript library for social network detection with React hooks support.
 
