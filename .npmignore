@@ -48,6 +48,13 @@ logs/
 .DS_Store
 Thumbs.db
 
+# Build artifacts
+tsconfig.tsbuildinfo
+*.tsbuildinfo
+
+# Runtime
+examples/
+
 # Git
 .git/
 .gitignore

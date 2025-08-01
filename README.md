@@ -291,7 +291,7 @@ src/
 │   ├── index.ts           # Main exports
 │   ├── patterns.ts        # Social network patterns
 │   ├── detector.ts        # Core detection logic
-│   └── hook.ts            # React hooks
+│   └── hooks/             # React hooks
 │   └── __tests__/         # Test files
 └── app/                   # Next.js demo app
 ```

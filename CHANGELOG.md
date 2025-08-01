@@ -7,27 +7,51 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.2] - 2025-08-01
+
+### Fixed
+
+- 🐛 **Critical Fix**: Moved `react` and `react-dom` from dependencies to devDependencies to prevent peer dependency conflicts
+- 🔧 Removed `next` from dependencies (only needed for demo development)
+- ✅ Library now correctly uses only `peerDependencies` for React, eliminating installation warnings
+
+### Changed
+
+- 📦 Cleaner package installation without unnecessary dependencies
+- 🎯 Reduced package size by removing bundled React dependencies
+
+## [1.0.1] - 2025-08-01
+
+### Published
+
+- 🎉 **First NPM Release!** Published to npm registry as `react-social-detector`
+- 📦 Package available at: <https://www.npmjs.com/package/react-social-detector>
+
 ### Added
 
-- Initial release of react-social-detector library
+- Complete TypeScript library for detecting and validating social network URLs
 - Support for 37+ social networks and platforms
-- TypeScript support with full type definitions
-- React hook (`useSocialNetworkDetection`) for easy integration
-- Bulk URL detection capabilities
-- Comprehensive test suite with 90%+ coverage
+- React hooks (`useReactSocialDetector`, `useBulkReactSocialDetector`) for easy integration
+- Multiple detection functions:
+  - `quickReactSocialDetector` - Fast single URL detection
+  - `reactSocialDetector` - Standard detection with full options
+  - `ReactSocialDetector` - Class-based detector
+  - `SocialNetworkUtils` - Utility functions
+- Comprehensive test suite with 65 tests (100% passing)
 - ESM and CommonJS compatibility
+- Full TypeScript definitions included
 - Next.js demo application
 
 ### Features
 
 - **Platform Detection**: Supports major platforms including YouTube, Twitter/X, Instagram, LinkedIn, TikTok, Facebook, and many more
 - **URL Validation**: Robust URL pattern matching with domain validation
-- **Performance**: Optimized detection algorithms with caching
+- **Performance**: Optimized detection algorithms
 - **Developer Experience**: Full TypeScript support, comprehensive documentation, and easy-to-use API
 - **Testing**: Extensive test coverage with Vitest
 - **Build System**: Professional Rollup configuration for dual module formats
 
-### Supported Platforms
+### Supported Platforms (37+)
 
 - YouTube (including @username format)
 - Twitter/X
@@ -59,43 +83,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Epic Games
 - And many more...
 
-## [1.0.0] - 2024-01-XX
-
-### Initial Release
-
-- Initial public release
-- Core detection functionality
-- TypeScript definitions
-- React hook integration
-- Comprehensive documentation
-- MIT license
-
----
-
-## Release Notes
-
-### Version 1.0.0
-
-This is the initial release of the react-social-detector library. The library provides a robust solution for detecting and validating social network URLs across 37+ platforms.
-
-**Key Features:**
-
-- **Universal Detection**: Works with all major social networks and platforms
-- **TypeScript First**: Built with TypeScript for better developer experience
-- **React Integration**: Includes React hook for seamless integration
-- **High Performance**: Optimized algorithms with intelligent caching
-- **Extensive Testing**: 90%+ test coverage with comprehensive edge case handling
-- **Modern Build**: ESM and CommonJS support for maximum compatibility
-
-**Getting Started:**
+### Installation
 
 ```bash
 npm install react-social-detector
 # or
 pnpm add react-social-detector
+# or
+yarn add react-social-detector
 ```
 
-**Basic Usage:**
+### Basic Usage
 
 ```typescript
 import { quickReactSocialDetector } from "react-social-detector";
@@ -104,22 +102,38 @@ const result = quickReactSocialDetector("https://youtube.com/@username");
 console.log(result); // { name: 'YouTube', domain: 'youtube.com', url: '...' }
 ```
 
-**React Hook:**
+### React Hook Usage
 
 ```typescript
 import { useReactSocialDetector } from "react-social-detector";
 
-const { detectNetwork, isValidUrl } = useSocialNetworkDetection();
-```
+function MyComponent() {
+  const { detectNetwork, isValidUrl } = useReactSocialDetector();
 
-For detailed documentation and examples, see the [README.md](./README.md).
+  const handleDetection = (url: string) => {
+    const result = detectNetwork(url);
+    console.log(result);
+  };
+
+  return <div>...</div>;
+}
+```
 
 ---
 
-### Contributing
+## Links
+
+- **NPM Package**: <https://www.npmjs.com/package/react-social-detector>
+- **GitHub Repository**: <https://github.com/zeroskullx/react-social-detector>
+- **Issues**: <https://github.com/zeroskullx/react-social-detector/issues>
+- **Documentation**: Available in README.md
+
+---
+
+## Contributing
 
 We welcome contributions! Please see our [Contributing Guide](./CONTRIBUTING.md) for details.
 
-### License
+## License
 
 This project is licensed under the MIT License - see the [LICENSE](./LICENSE) file for details.
