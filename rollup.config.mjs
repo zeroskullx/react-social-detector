@@ -17,7 +17,7 @@ const external = [
 ];
 
 const commonConfig = {
-  input: 'src/react-social-detector/index.ts',
+  input: `src/${pkg.name}/index.ts`,
   external,
 };
 
@@ -85,7 +85,7 @@ export default [
 
   // Type definitions
   {
-    input: 'src/react-social-detector/index.ts',
+    input: `src/${pkg.name}/index.ts`,
     output: {
       file: pkg.types,
       format: 'esm',
