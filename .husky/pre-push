@@ -1,0 +1,11 @@
+# Run full lint check
+pnpm lint
+
+# Run type checking
+pnpm typecheck
+
+# Run all tests with coverage
+vitest run
+
+# Try to build the library to ensure it compiles
+pnpm build:lib

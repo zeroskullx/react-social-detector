@@ -1,0 +1,72 @@
+# Source files
+src/app/
+public/
+
+# Development files
+.next/
+.vscode/
+.idea/
+
+# Tests
+**/__tests__/
+**/*.test.ts
+**/*.test.tsx
+**/*.spec.ts
+**/*.spec.tsx
+coverage/
+.nyc_output/
+
+# Configuration files
+*.config.js
+*.config.ts
+*.config.mjs
+vitest.config.mjs
+jest.config.js
+rollup.config.mjs
+next.config.ts
+next-env.d.ts
+tsconfig.json
+
+# Documentation (keep README.md)
+CONTRIBUTING.md
+CHANGELOG.md
+
+# Development dependencies
+node_modules/
+pnpm-lock.yaml
+yarn.lock
+package-lock.json
+
+# Environment
+.env*
+
+# Logs
+logs/
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Git
+.git/
+.gitignore
+
+# Build artifacts (except dist/)
+build/
+.next/
+out/
+
+# Cache
+.cache/
+.parcel-cache/
+.rpt2_cache/
+.rts2_cache_cjs/
+.rts2_cache_es/
+.rts2_cache_umd/
+
+# Temporary
+tmp/
+temp/
+*.tmp
+*.temp

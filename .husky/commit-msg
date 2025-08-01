@@ -1,0 +1,18 @@
+# Basic commit message validation
+# Ensures commit messages are not empty and have a minimum length
+commit_regex='^.{10,}$'
+
+if ! grep -qE "$commit_regex" "$1"; then
+    echo "❌ Invalid commit message!"
+    echo "💡 Commit message should be at least 10 characters long"
+    echo "💡 Consider using conventional commits: feat:, fix:, docs:, etc."
+    echo ""
+    echo "Examples:"
+    echo "  feat: add new social network detection for TikTok"
+    echo "  fix: resolve URL validation issue with special characters"
+    echo "  docs: update README with new usage examples"
+    echo ""
+    exit 1
+fi
+
+echo "✅ Commit message looks good!"

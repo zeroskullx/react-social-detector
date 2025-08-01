@@ -1,0 +1,20 @@
+# Build outputs
+dist/**
+.next/**
+node_modules/**
+
+# Configuration files
+*.config.js
+*.config.ts
+*.config.mjs
+next-env.d.ts
+
+# Coverage
+coverage/**
+.nyc_output/**
+
+# Examples (less strict linting)
+examples/**/*.jsx
+
+# App demo files (Next.js specific)
+src/app/**/*.tsx

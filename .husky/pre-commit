@@ -1,0 +1,8 @@
+# Run lint-staged to check staged files
+pnpm lint-staged
+
+# Run type checking
+pnpm typecheck
+
+# Run tests to ensure nothing is broken
+vitest run
