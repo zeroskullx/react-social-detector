@@ -1,4 +1,4 @@
-# Detect Social Network
+# React Social Detect
 
 A modern and comprehensive TypeScript library for social network detection with React hooks support.
 
@@ -164,7 +164,7 @@ ReactSocialDetectorUtils.extractDomain("https://instagram.com/user"); // 'instag
 
 ## 🔍 Detection Methods
 
-The library uses multiple methods to detect social networks:
+The library uses multiple methods to React Social Detects:
 
 1. **Pattern Matching** (Confidence: High)
 

@@ -1,6 +1,6 @@
-# Contributing to Detect Social Network
+# Contributing to React Social Detect
 
-Thank you for your interest in contributing to Detect Social Network! This document provides guidelines for contributing to this project.
+Thank you for your interest in contributing to React Social Detect! This document provides guidelines for contributing to this project.
 
 ## 🚀 Getting Started
 
@@ -203,7 +203,7 @@ This project follows a Code of Conduct. Please be respectful and constructive in
 
 ## 📄 License
 
-By contributing to Detect Social Network, you agree that your contributions will be licensed under the MIT License.
+By contributing to React Social Detect, you agree that your contributions will be licensed under the MIT License.
 
 ## ❓ Questions?
 
