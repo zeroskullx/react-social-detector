@@ -36,7 +36,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - `quickReactSocialDetector` - Fast single URL detection
   - `reactSocialDetector` - Standard detection with full options
   - `ReactSocialDetector` - Class-based detector
-  - `SocialNetworkUtils` - Utility functions
+  - `socialNetworkUtils` - Utility functions
 - Comprehensive test suite with 65 tests (100% passing)
 - ESM and CommonJS compatibility
 - Full TypeScript definitions included

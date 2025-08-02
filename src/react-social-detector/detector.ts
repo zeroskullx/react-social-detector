@@ -1,7 +1,7 @@
 import {
 	SOCIAL_NETWORKS_PATTERNS,
 	type SocialNetworkKey,
-	type SocialNetworkPattern,
+	type SocialNetworkPatternProps,
 } from './patterns'
 
 /**
@@ -64,7 +64,7 @@ interface DetectionMethodResult {
  * Main class for detecting social networks from URLs and domains
  */
 export class ReactSocialDetector {
-	private readonly patterns: Record<string, SocialNetworkPattern>
+	private readonly patterns: Record<string, SocialNetworkPatternProps>
 	private readonly domainCache = new Map<string, SocialNetworkKey | null>()
 
 	constructor() {

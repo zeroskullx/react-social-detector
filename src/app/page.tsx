@@ -2,9 +2,10 @@
 
 import type React from 'react'
 import { useState } from 'react'
+
+import { socialNetworkUtils } from '@/react-social-detector'
 import {
 	type SocialNetworkKey,
-	SocialNetworkUtils,
 	useReactSocialDetector,
 } from '../react-social-detector'
 import styles from './reactSocialDetectorDemo.module.css'
@@ -156,22 +157,21 @@ const ReactSocialDetectorDemo: React.FC = () => {
 				<h3>Utility Functions</h3>
 				<code>
 					isPlatformSupported('instagram'):{' '}
-					{SocialNetworkUtils.isPlatformSupported('instagram').toString()}
+					{socialNetworkUtils.isPlatformSupported('instagram').toString()}
 				</code>
 				<code>
 					getPlatformDisplayName('instagram'):{' '}
-					{SocialNetworkUtils.getPlatformDisplayName('instagram')}
+					{socialNetworkUtils.getPlatformDisplayName('instagram')}
 				</code>
 				<code>
 					extractDomain('https://instagram.com/test'):{' '}
-					{SocialNetworkUtils.extractDomain('https://instagram.com/test')}
+					{socialNetworkUtils.extractDomain('https://instagram.com/test')}
 				</code>
 				<code>
 					validateUsername('testuser', 'instagram'):{' '}
-					{SocialNetworkUtils.validateUsername(
-						'testuser',
-						'instagram'
-					).toString()}
+					{socialNetworkUtils
+						.validateUsername('testuser', 'instagram')
+						.toString()}
 				</code>
 			</div>
 		</div>

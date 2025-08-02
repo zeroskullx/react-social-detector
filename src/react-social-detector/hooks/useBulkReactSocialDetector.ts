@@ -1,4 +1,5 @@
 import { useCallback, useMemo, useState } from 'react'
+
 import { reactSocialDetector } from '../detector'
 import type {
 	BulkDetectionItem,

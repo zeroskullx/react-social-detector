@@ -3,7 +3,7 @@
  * Defines patterns and configurations for detecting social network platforms
  */
 
-export interface SocialNetworkPattern {
+export interface SocialNetworkPatternProps {
 	readonly domains: readonly RegExp[]
 	readonly baseUrl: string
 	readonly usernamePrefix?: string
@@ -401,9 +401,6 @@ export const SOCIAL_NETWORKS_PATTERNS = {
 		exampleDomain: 'youtube.com',
 		allowSubdomains: true,
 	},
-} as const satisfies Record<string, SocialNetworkPattern>
+} as const satisfies Record<string, SocialNetworkPatternProps>
 
 export type SocialNetworkKey = keyof typeof SOCIAL_NETWORKS_PATTERNS
-
-// Legacy export for backward compatibility
-export const socialNetworksPatterns = SOCIAL_NETWORKS_PATTERNS

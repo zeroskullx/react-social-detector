@@ -1,20 +1,12 @@
 import { describe, expect, it } from 'vitest'
-import {
-	SOCIAL_NETWORKS_PATTERNS,
-	type SocialNetworkKey,
-	socialNetworksPatterns,
-} from '../patterns'
+
+import { SOCIAL_NETWORKS_PATTERNS, type SocialNetworkKey } from '../patterns'
 
 describe('Social Network Patterns', () => {
 	describe('SOCIAL_NETWORKS_PATTERNS', () => {
 		it('should export patterns correctly', () => {
 			expect(SOCIAL_NETWORKS_PATTERNS).toBeDefined()
 			expect(typeof SOCIAL_NETWORKS_PATTERNS).toBe('object')
-		})
-
-		it('should have legacy export socialNetworksPatterns', () => {
-			expect(socialNetworksPatterns).toBeDefined()
-			expect(socialNetworksPatterns).toBe(SOCIAL_NETWORKS_PATTERNS)
 		})
 
 		it('should contain required platforms', () => {
