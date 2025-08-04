@@ -114,7 +114,7 @@ export const socialNetworkUtils = {
 			linkedin: /^[a-zA-Z0-9-]{3,100}$/,
 			reddit: /^[a-zA-Z0-9_-]{3,20}$/,
 			facebook: /^[a-zA-Z0-9.]{5,50}$/,
-			discord: /^\d{18,19}$/, // Discord user IDs are 18-19 digits exactly
+			discord: /^\d{17,19}$/, // Discord user IDs are 17-19 digits exactly
 			telegram: /^[a-zA-Z0-9_]{5,32}$/,
 			twitch: /^[a-zA-Z0-9_]{4,25}$/,
 			pinterest: /^[a-zA-Z0-9_]{3,30}$/,

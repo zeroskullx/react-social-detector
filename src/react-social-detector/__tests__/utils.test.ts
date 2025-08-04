@@ -284,6 +284,9 @@ describe('Social Network Utils', () => {
 
 		it('should validate Discord user IDs correctly', () => {
 			expect(
+				socialNetworkUtils.validateUsername('12345678901234567', 'discord')
+			).toBe(true) // 17 chars
+			expect(
 				socialNetworkUtils.validateUsername('123456789012345678', 'discord')
 			).toBe(true) // 18 chars
 			expect(
@@ -291,8 +294,8 @@ describe('Social Network Utils', () => {
 			).toBe(true) // 19 chars
 
 			expect(
-				socialNetworkUtils.validateUsername('12345678901234567', 'discord')
-			).toBe(false) // 17 chars
+				socialNetworkUtils.validateUsername('1234567890123456', 'discord')
+			).toBe(false) // 16 chars
 			expect(
 				socialNetworkUtils.validateUsername('12345678901234567890', 'discord')
 			).toBe(false) // 20 chars
