@@ -13,6 +13,7 @@ import styles from './reactSocialDetectorDemo.module.css'
 const ReactSocialDetectorDemo: React.FC = () => {
 	const [inputUrl, setInputUrl] = useState('')
 	const [username, setUsername] = useState('')
+	const [iconType, setIconType] = useState<'rounded' | undefined>(undefined)
 
 	const {
 		result,
@@ -157,7 +158,27 @@ const ReactSocialDetectorDemo: React.FC = () => {
 			)}
 
 			<div className={styles.supported}>
-				<h3>Supported Platforms ({supportedPlatforms.length})</h3>
+				<div className={styles.supported_header}>
+					<h3>Supported Platforms ({supportedPlatforms.length})</h3>
+
+					<div className={styles.inputGroup}>
+						<label htmlFor="icon-type-select">Icon Type:</label>
+						<select
+							id="icon-type-select"
+							value={iconType || ''}
+							onChange={(e) =>
+								setIconType(
+									e.target.value === ''
+										? undefined
+										: (e.target.value as 'rounded')
+								)
+							}
+						>
+							<option value="">Default</option>
+							<option value="rounded">Rounded</option>
+						</select>
+					</div>
+				</div>
 
 				<div className={styles.platformGrid}>
 					{supportedPlatforms.map(({ key, displayName, exampleDomain }) => {
@@ -167,7 +188,14 @@ const ReactSocialDetectorDemo: React.FC = () => {
 								className={styles.platform_icon}
 								onClick={() => setInputUrl(`https://${exampleDomain}`)}
 							>
-								<SocialIcon platform={key} pathColor="#fff" />
+								<SocialIcon
+									width={24}
+									height={24}
+									platform={key}
+									pathColor={iconType === 'rounded' ? '#ffffff' : '#eeeb2c'}
+									type={iconType}
+									//divProps={{ backgroundColor: '#020202' }}
+								/>
 								<span>{displayName}</span>
 							</div>
 						)

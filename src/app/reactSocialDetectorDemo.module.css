@@ -226,3 +226,9 @@
 	font-size: 0.875rem;
 	color: #e0e0e0;
 }
+
+.supported_header {
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-start;
+}

@@ -15,25 +15,68 @@ export type SocialIconProps = {
 	pathColor?: string
 	height?: string | number
 	width?: string | number
+	type?: 'rounded' | undefined // | 'square'
+	divProps?: {
+		className?: string
+		backgroundColor?: string
+	}
 }
 
 export const SocialIcon = forwardRef<HTMLDivElement, SocialIconProps>(
 	(props, ref) => {
 		const localRef = ref
 
-		const { platform, height, width, pathColor } = props
+		const {
+			platform,
+			height,
+			width,
+			pathColor,
+			type: iconType,
+			divProps,
+		} = props
+
+		const newWidth = width || '1rem'
+		const newHeight = height || '1rem'
 
 		const { path, color, viewBox } =
 			iconsData[platform as IconDBKeys] || iconsData.default
+
+		const fillColor = pathColor || color
+
+		if (iconType === 'rounded') {
+			return (
+				<div
+					ref={localRef}
+					className={`${divProps?.className || ''}`}
+					style={{
+						backgroundColor: divProps?.backgroundColor || color,
+						borderRadius: '50%',
+						padding: `calc(${typeof newWidth === 'number' ? `${newWidth}px` : newWidth} / 100 * 30)`,
+						display: 'flex',
+						justifyContent: 'center',
+						alignContent: 'center',
+					}}
+				>
+					<Icon
+						path={path}
+						ariaLabel={platform || ''}
+						fillColor={fillColor}
+						viewBox={viewBox}
+						height={newHeight}
+						width={newWidth}
+					/>
+				</div>
+			)
+		}
 
 		return (
 			<Icon
 				path={path}
 				ariaLabel={platform || ''}
-				fillColor={pathColor || color}
+				fillColor={fillColor}
 				viewBox={viewBox}
-				height={height}
-				width={width}
+				height={newHeight}
+				width={newWidth}
 			/>
 		)
 	}
@@ -65,8 +108,8 @@ const Icon = (props: IconProps) => {
 			fill={fillColor || 'currentColor'}
 			strokeWidth="0"
 			viewBox={viewBox || '0 0 64 64'}
-			height={height || '1em'}
-			width={width || '1em'}
+			height={height}
+			width={width}
 			style={{
 				...social_svg_g,
 			}}
@@ -77,5 +120,3 @@ const Icon = (props: IconProps) => {
 		</svg>
 	)
 }
-
-SocialIcon.displayName = 'SocialIcon'
