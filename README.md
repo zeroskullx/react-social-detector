@@ -1,46 +1,70 @@
 # React Social Detector
 
-A modern and comprehensive TypeScript library for social network detection with React hooks support.
+✨ **Detect and validate social media URLs with ease and precision! A modern, complete TypeScript library with native React support.**
 
-## 🚀 Features
+## 🎯 Why Use It?
 
-- ✅ **37+ platforms supported** - Instagram, Twitter/X, LinkedIn, YouTube, TikTok, GitHub, and many more
-- ✅ **Built-in React Hooks** - `useReactSocialDetector` and `useBulkReactSocialDetector` for easy integration
-- ✅ **TypeScript Native** - Full typing and autocomplete support
-- ✅ **Intelligent Detection** - Multiple detection methods with confidence levels
-- ✅ **URL Generation** - Creates normalized URLs automatically
-- ✅ **Username Extraction** - Extracts usernames from existing URLs
-- ✅ **Tree-shakeable** - Only the code you use is included in your bundle
-- ✅ **Zero Dependencies** - Lightweight with no external dependencies
-- ✅ **Bulk Detection** - Process multiple URLs concurrently
-- ✅ **Performance Optimized** - Built-in caching and lazy evaluation
+Ever needed to identify which social network a URL belongs to? Extract usernames? Generate standardized URLs? React Social Detector solves all these problems with a simple and powerful API.
 
-## 📦 Installation
+## 🚀 Key Features
+
+- 🌐 **30+ supported platforms** - Instagram, Twitter/X, LinkedIn, YouTube, TikTok, GitHub, and many others
+- ⚛️ **Native React Hooks** - `useReactSocialDetector` and `useBulkReactSocialDetector` for seamless integration
+- 🎨 **SVG Icon Component** - `SocialIcon` with support for simple and rounded icons
+- 🔍 **Smart detection** - Multiple detection methods with confidence levels
+- 🔗 **URL generation** - Creates normalized URLs automatically
+- 👤 **Username extraction** - Extracts usernames from existing URLs
+- 📦 **Tree-shakeable** - Only the code you use is included in the bundle
+- 🚫 **Zero dependencies** - Lightweight with no external dependencies
+- ⚡ **Batch detection** - Process multiple URLs simultaneously
+- 🎯 **Native TypeScript** - Full typing and autocomplete
+- 🚀 **Optimized performance** - Internal cache and lazy evaluation
+
+### Performance and Benchmarks
+
+The library is optimized for performance:
+
+- **Domain cache** - Avoids reprocessing
+- **Lazy evaluation** - Processes only when necessary
+- **Tree-shaking** - Final bundle contains only used code
+- **TypeScript** - Compile-time optimizations
+
+**Execution Times:**
+
+```text
+Simple detection: ~0.1ms
+Cached detection: ~0.01ms
+Batch detection (100 items): ~10ms
+Username extraction: ~0.05ms
+```
+
+## 📦 Instalação
 
 ```bash
+# npm
 npm install react-social-detector
-# or
+
+# yarn
 yarn add react-social-detector
-# or
+
+# pnpm
 pnpm add react-social-detector
 ```
 
-## 📚 API Reference
+## 📌 Quick Usage Examples
 
-### `quickReactSocialDetector(url, username?, options?)`
-
-Detects the social network from a URL or domain.
+### → [**View complete examples**](examples/complete-demo.md)
 
 **Parameters:**
 
-- `url: string` - URL or domain to detect
+- `input: string` - URL or domain to be detected
 - `username?: string` - Optional username to generate normalized URL
 - `options?: DetectionOptions` - Detection options
 
-**Returns:** `SocialNetworkDetectionResult`
+**Returns:** `ReactSocialDetectionResult`
 
 ```typescript
-interface SocialNetworkDetectionResult {
+interface ReactSocialDetectionResult {
   platform: SocialNetworkKey | "unknown";
   isValid: boolean;
   normalizedUrl?: string;
@@ -57,13 +81,13 @@ interface SocialNetworkDetectionResult {
 
 ### `useReactSocialDetector(options?)`
 
-React hook for social network detection.
+React hook for social network detection with debounce and error handling.
 
 **Options:**
 
 ```typescript
 interface UseReactSocialDetectorOptions {
-  debounceMs?: number; // Default: 300
+  debounceMs?: number; // Default: 300ms
   autoDetect?: boolean; // Default: false
   strictMode?: boolean; // Default: false
   includeSubdomains?: boolean; // Default: true
@@ -76,20 +100,25 @@ interface UseReactSocialDetectorOptions {
 
 ```typescript
 interface UseReactSocialDetectorReturn {
-  result: SocialNetworkDetectionResult | null;
+  // State
+  result: ReactSocialDetectionResult | null;
   isDetecting: boolean;
   error: string | null;
+
+  // Actions
   detect: (
     input: string,
     username?: string
-  ) => Promise<SocialNetworkDetectionResult>;
+  ) => Promise<ReactSocialDetectionResult>;
   clear: () => void;
   extractUsername: (url: string, platform?: SocialNetworkKey) => string | null;
   validatePlatform: (
     url: string,
     expectedPlatform: SocialNetworkKey
   ) => boolean;
-  supportedPlatforms: Array<{ key: SocialNetworkKey; displayName: string }>;
+
+  // Utilities
+  supportedPlatforms: readonly PlatformInfo[];
   generateProfileUrl: (
     platform: SocialNetworkKey,
     username: string
@@ -99,7 +128,7 @@ interface UseReactSocialDetectorReturn {
 
 ### `useBulkReactSocialDetector(options?)`
 
-React hook for bulk social network detection.
+React hook for batch detection with concurrency control.
 
 **Options:**
 
@@ -113,32 +142,58 @@ interface UseBulkDetectionOptions {
 }
 ```
 
-### `ReactSocialDetectorUtils`
+### `SocialIcon`
+
+React component for displaying SVG social media icons.
+
+**Props:**
+
+```typescript
+interface SocialIconProps {
+  platform?: SocialNetworkKey | "unknown";
+  pathColor?: string; // Icon path color
+  height?: string | number; // Icon height
+  width?: string | number; // Icon width
+  type?: "rounded"; // Icon type (undefined = simple)
+  divProps?: {
+    className?: string;
+    backgroundColor?: string; // Background color (for type="rounded")
+  };
+}
+```
+
+### `socialNetworkUtils`
 
 Utility functions for working with social networks.
 
 ```typescript
-import { ReactSocialDetectorUtils } from "react-social-detector";
+import { socialNetworkUtils } from "react-social-detector";
 
 // Check if platform is supported
-ReactSocialDetectorUtils.isPlatformSupported("instagram"); // true
+socialNetworkUtils.isPlatformSupported("instagram"); // true
 
-// Get platform display name
-ReactSocialDetectorUtils.getPlatformDisplayName("instagram"); // 'Instagram'
+// Get display name
+socialNetworkUtils.getPlatformDisplayName("instagram"); // 'Instagram'
 
 // Get all supported platforms
-ReactSocialDetectorUtils.getAllPlatformKeys(); // ['instagram', 'twitter', ...]
+socialNetworkUtils.getAllPlatforms(); // Array with all platforms
 
 // Normalize URL
-ReactSocialDetectorUtils.normalizeUrl("instagram.com"); // 'https://instagram.com'
+socialNetworkUtils.normalizeUrl("instagram.com"); // 'https://instagram.com'
 
 // Extract domain
-ReactSocialDetectorUtils.extractDomain("https://instagram.com/user"); // 'instagram.com'
+socialNetworkUtils.extractDomain("https://instagram.com/user"); // 'instagram.com'
 
-// Validate username format (removed - not available in current version)
+// Validate username format
+socialNetworkUtils.validateUsername("testuser", "instagram"); // true
+
+// Generate profile URL
+socialNetworkUtils.generateProfileUrl("instagram", "username"); // 'https://instagram.com/username'
 ```
 
 ## 🌐 Supported Platforms
+
+The library supports **30+ popular platforms**:
 
 | Platform  | Key         | Main Domains          |
 | --------- | ----------- | --------------------- |
@@ -160,11 +215,11 @@ ReactSocialDetectorUtils.extractDomain("https://instagram.com/user"); // 'instag
 | Bluesky   | `bluesky`   | bsky.app              |
 | Mastodon  | `mastodon`  | mastodon.social       |
 | Medium    | `medium`    | medium.com            |
-| ...       | ...         | +19 other platforms   |
+| ...       | ...         | +17 other platforms   |
 
 ## 🔍 Detection Methods
 
-The library uses multiple methods to React Social Detects:
+The library uses multiple methods for maximum accuracy:
 
 1. **Pattern Matching** (Confidence: High)
 
@@ -174,66 +229,111 @@ The library uses multiple methods to React Social Detects:
 2. **Domain Extraction** (Confidence: Medium)
 
    - Direct mapping of known domains
-   - Cached for better performance
+   - Cache for better performance
 
-3. **URL Structure Analysis** (Confidence: Low)
+3. **Structure Analysis** (Confidence: Low)
    - Analysis of common URL structures
    - Fallback when other methods fail
 
-## 📊 Bulk Detection
+## ❓ FAQ
 
-```typescript
-import { useBulkReactSocialDetector } from "react-social-detector";
+### How to add a new social network?
 
-function BulkDetector() {
-  const { results, isDetecting, progress, detectBulk } =
-    useBulkReactSocialDetector({
-      maxConcurrent: 5,
-    });
+1. Add the pattern in `/src/react-social-detector/assets/patterns-db.json`
+2. Implement validation rules if necessary
+3. Add the SVG icon in `/src/react-social-detector/assets/icons-db.json`
+4. Run tests to verify
 
-  const handleBulkDetection = async () => {
-    const items = [
-      { id: "1", input: "instagram.com", username: "user1" },
-      { id: "2", input: "twitter.com", username: "user2" },
-      { id: "3", input: "linkedin.com", username: "user3" },
-    ];
+### Does the SocialIcon component support custom icons?
 
-    await detectBulk(items);
-  };
+Yes! You can:
 
-  return (
-    <div>
-      <button onClick={handleBulkDetection} disabled={isDetecting}>
-        Bulk Detect
-      </button>
+- Use `pathColor` to change the color
+- Use `type="rounded"` for circular background
+- Pass `divProps` for custom styling
 
-      {isDetecting && (
-        <p>
-          Progress: {progress.completed}/{progress.total}
-        </p>
-      )}
+### How to improve performance?
 
-      {results.map((result) => (
-        <div key={result.id}>
-          {result.input}: {result.result.platform}
-          {result.error && <span>Error: {result.error}</span>}
-        </div>
-      ))}
-    </div>
-  );
+- Use `strictMode: false` for faster detection
+- Enable cache with `includeSubdomains: true`
+- For batch, adjust `maxConcurrent` as needed
+
+### Does the library work with React Native?
+
+Yes! The library supports React Native (currently in beta).
+
+**Note for implementation:**
+Only the `SocialIcon` component requires minor adjustments for SVG compatibility.
+
+## 🤝 Contributing
+
+Suggestions for new networks are welcome! Follow the pattern:
+
+1. Fork the project
+2. Create a feature branch (`git checkout -b feature/NewPlatform`)
+3. Commit your changes (`git commit -m 'Add new platform'`)
+4. Push to the branch (`git push origin feature/NewPlatform`)
+5. Open a Pull Request
+
+### Adding a New Platform
+
+To add support for a new social network:
+
+1. Add patterns in `patterns-db.json`:
+
+```json
+{
+  "newplatform": {
+    "domains": ["/newplatform.com$/"],
+    "baseUrl": "https://newplatform.com/",
+    "displayName": "New Platform",
+    "exampleDomain": "newplatform.com",
+    "allowSubdomains": false
+  }
 }
 ```
 
-## ⚙️ Advanced Configuration
+1. Add username validation in `index.ts` if necessary:
+
+```typescript
+const platformValidators: Record<string, RegExp> = {
+  // ... other validators
+  newplatform: /^[a-zA-Z0-9_]{3,20}$/,
+};
+```
+
+1. Add tests for the new platform
+
+### Project Structure
+
+```text
+src/
+├── react-social-detector/
+│   ├── index.ts              # Main exports
+│   ├── utils.ts              # Utility functions
+│   ├── assets/
+│   │   ├── patterns-db.json  # Platform patterns
+│   │   └── icons-db.json     # SVG icons
+│   ├── components/
+│   │   └── SocialIcon/       # Icon component
+│   ├── hooks/                # React hooks
+│   ├── lib/
+│   │   ├── detector.ts       # Detection logic
+│   │   └── types.ts          # TypeScript types
+│   └── __tests__/            # Tests
+└── app/                      # Next.js demo
+```
+
+## 🔧 Advanced Configuration
 
 ### Detection Options
 
 ```typescript
 const options: DetectionOptions = {
-  strictMode: true, // More rigorous detection
-  includeSubdomains: true, // Include subdomains in detection
-  caseSensitive: false, // Case sensitive matching
-  extractMetadata: true, // Include metadata in results
+  strictMode: true, // Stricter detection
+  includeSubdomains: true, // Include subdomains
+  caseSensitive: false, // Case sensitive
+  extractMetadata: true, // Include metadata in result
 };
 
 const result = quickReactSocialDetector("Instagram.com", "user", options);
@@ -244,113 +344,92 @@ const result = quickReactSocialDetector("Instagram.com", "user", options);
 ```typescript
 const { detect } = useReactSocialDetector({
   debounceMs: 500, // Wait 500ms before detecting
-  autoDetect: true, // Automatically detect when input changes
+  autoDetect: true, // Automatically detect on input change
 });
 ```
 
-## 🧪 Testing
+### SocialIcon Customization
+
+```tsx
+// Simple icon
+<SocialIcon platform="instagram" pathColor="#E4405F" />
+
+// Icon with rounded background and custom color
+<SocialIcon
+  platform="twitter"
+  type="rounded"
+  divProps={{ backgroundColor: '#1DA1F2' }}
+/>
+
+// Large icon for emphasis
+<SocialIcon
+  platform="youtube"
+  width={48}
+  height={48}
+  pathColor="#FF0000"
+/>
+```
+
+## 🧪 Tests
 
 ```bash
 # Run tests
-npm test
+pnpm test
 
 # Watch mode
-npm run test:watch
+pnpm run test:watch
 
 # Coverage
-npm run test:coverage
+pnpm run test:coverage
 ```
 
 ## 🛠️ Build and Development
 
 ```bash
 # Install dependencies
-npm install
+pnpm install
+
 
 # Development with watch
-npm run dev
+pnpm run dev
 
 # Build for production
-npm run build
+pnpm run build
 
 # Build library only
-npm run build:lib
+pnpm run build:lib
 
 # Linting
-npm run lint
+pnpm run lint
 
 # Type checking
-npm run typecheck
+pnpm run typecheck
 ```
 
-## 📁 Project Structure
+---
 
-```
-src/
-├── react-social-detector/
-│   ├── index.ts           # Main exports
-│   ├── patterns.ts        # Social network patterns
-│   ├── detector.ts        # Core detection logic
-│   └── hooks/             # React hooks
-│   └── __tests__/         # Test files
-└── app/                   # Next.js demo app
-```
+### ⚠️ Windows Users: Note on Script Compatibility
 
-## 🤝 Contributing
+Some npm scripts (like `husky install || true` or commands with `&&`) may fail on Windows due to shell differences.
 
-Contributions are welcome! Please:
+**Workarounds:**
 
-1. Fork the project
-2. Create a feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
+1. Use **Git Bash** or **WSL** (Windows Subsystem for Linux) for full compatibility.
+2. For `husky`, manually run after installation:
 
-### Adding a New Platform
+   ```bash
+   npx husky install
+   ```
 
-To add support for a new social network:
+3. Replace `&&` with cross-platform alternatives like [`npm-run-all`](https://www.npmjs.com/package/npm-run-all).
 
-1. Add patterns in `patterns.ts`:
-
-```typescript
-export const SOCIAL_NETWORKS_PATTERNS = {
-  // ... other platforms
-  newplatform: {
-    domains: [/newplatform\.com$/],
-    baseUrl: "https://newplatform.com/",
-    displayName: "New Platform",
-    exampleDomain: "newplatform.com",
-    allowSubdomains: false,
-  },
-} as const;
-```
-
-2. Add username validation in `index.ts` if needed:
-
-```typescript
-const platformValidators: Record<string, RegExp> = {
-  // ... other validators
-  newplatform: /^[a-zA-Z0-9_]{3,20}$/,
-};
-```
-
-3. Add tests for the new platform
-
-## 🐛 Bug Reports
-
-If you find a bug, please open an issue with:
-
-- Detailed description of the problem
-- Steps to reproduce
-- Expected vs actual behavior
-- Library version
-- Environment (Node.js, browser, etc.)
+_(This is a known Node.js/npm behavior on Windows cmd/PowerShell.)_
 
 ## 📈 Performance
 
 The library is optimized for performance:
 
-- **Domain caching** - Avoids reprocessing
+- **Domain cache** - Avoids reprocessing
 - **Lazy evaluation** - Processes only when necessary
 - **Tree-shaking** - Final bundle contains only used code
 - **TypeScript** - Compile-time optimizations
@@ -360,7 +439,7 @@ The library is optimized for performance:
 ```text
 Simple detection: ~0.1ms
 Cached detection: ~0.01ms
-Bulk detection (100 items): ~10ms
+Batch detection (100 items): ~10ms
 Username extraction: ~0.05ms
 ```
 
@@ -369,18 +448,18 @@ Username extraction: ~0.05ms
 - ✅ Input sanitization
 - ✅ URL validation
 - ✅ XSS protection
-- ✅ Rate limiting in bulk detection
+- ✅ Rate limiting in batch detection
 
-## 📄 Changelog
+## 📅 Versions and Changelog
 
-### v1.0.0
+### v1.0.2 (Current)
 
-- ✨ Initial release
-- ✨ Support for 37+ platforms
-- ✨ Built-in React hooks
-- ✨ TypeScript native
-- ✨ Intelligent detection with multiple methods
-- ✨ Bulk detection support
+- ✨ SocialIcon component with rounded support
+- ✨ 30+ supported platforms
+- ✨ Native React hooks
+- ✨ Native TypeScript
+- ✨ Smart detection with multiple methods
+- ✨ Batch detection support
 - ✨ Performance optimizations
 
 ## 📜 License
