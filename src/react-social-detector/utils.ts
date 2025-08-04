@@ -1,5 +1,8 @@
+import {
+	SOCIAL_NETWORKS_PATTERNS,
+	type SocialNetworkKey,
+} from './assets/patterns'
 import { type PlatformInfo, reactSocialDetector } from './detector'
-import { SOCIAL_NETWORKS_PATTERNS, type SocialNetworkKey } from './patterns'
 
 // Utility functions with better structure
 export const socialNetworkUtils = {

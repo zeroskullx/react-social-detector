@@ -2,7 +2,7 @@ import {
 	SOCIAL_NETWORKS_PATTERNS,
 	type SocialNetworkKey,
 	type SocialNetworkPatternProps,
-} from './patterns'
+} from './assets/patterns'
 
 /**
  * Result of social network detection

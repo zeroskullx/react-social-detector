@@ -10,6 +10,11 @@ import {
 } from './detector'
 import { socialNetworkUtils } from './utils'
 
+// Types Pattern Export
+export type {
+	SocialNetworkKey,
+	SocialNetworkPatternProps,
+} from './assets/patterns'
 // Components Export
 export { SocialIcon } from './components/SocialIcon'
 // Types Core Export
@@ -35,8 +40,6 @@ export type {
 } from './hooks/types'
 export { useBulkReactSocialDetector } from './hooks/useBulkReactSocialDetector'
 export { useReactSocialDetector } from './hooks/useReactSocialDetector'
-// Types Pattern Export
-export type { SocialNetworkKey, SocialNetworkPatternProps } from './patterns'
 // Utils Export
 export { socialNetworkUtils } from './utils'
 

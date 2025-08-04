@@ -1,4 +1,4 @@
-import iconsDB from './db.json'
+import iconsDB from '../../assets/icons-db.json'
 
 type IconDBSchema = {
 	color: string

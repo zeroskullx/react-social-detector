@@ -1,6 +1,9 @@
 import { describe, expect, it } from 'vitest'
 
-import { SOCIAL_NETWORKS_PATTERNS, type SocialNetworkKey } from '../patterns'
+import {
+	SOCIAL_NETWORKS_PATTERNS,
+	type SocialNetworkKey,
+} from '../assets/patterns'
 
 describe('Social Network Patterns', () => {
 	describe('SOCIAL_NETWORKS_PATTERNS', () => {

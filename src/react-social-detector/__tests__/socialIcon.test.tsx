@@ -2,8 +2,8 @@ import '@testing-library/jest-dom'
 import { render, screen } from '@testing-library/react'
 import { describe, expect, it, vi } from 'vitest'
 
+import type { SocialNetworkKey } from '../assets/patterns'
 import { SocialIcon } from '../components/SocialIcon'
-import type { SocialNetworkKey } from '../patterns'
 
 describe('SocialIcon Component', () => {
 	describe('Basic Rendering', () => {

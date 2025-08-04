@@ -1,8 +1,8 @@
 /** @jsxImportSource react */
 import { forwardRef } from 'react'
 
-import type { SocialNetworkKey } from '../../patterns'
-import { type IconDBKeys, iconsData } from './iconsData'
+import type { SocialNetworkKey } from '../../assets/patterns'
+import { type IconDBKeys, iconsData } from './types'
 
 /**
  * Props for the SocialIcon component.

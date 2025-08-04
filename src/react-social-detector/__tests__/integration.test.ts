@@ -1,11 +1,14 @@
 import { describe, expect, it } from 'vitest'
 
 import {
+	SOCIAL_NETWORKS_PATTERNS,
+	type SocialNetworkKey,
+} from '../assets/patterns'
+import {
 	quickReactSocialDetector,
 	ReactSocialDetector,
 	reactSocialDetector,
 } from '../detector'
-import { SOCIAL_NETWORKS_PATTERNS, type SocialNetworkKey } from '../patterns'
 
 describe('Integration Tests', () => {
 	describe('Cross-Platform Detection', () => {
