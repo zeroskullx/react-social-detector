@@ -154,7 +154,6 @@ describe('SocialIcon Component', () => {
 
 	describe('Edge Cases', () => {
 		it('should handle invalid platform gracefully', () => {
-			// @ts-expect-error Testing invalid platform
 			render(<SocialIcon platform="invalid-platform" />)
 
 			const icon = screen.getByRole('img')
