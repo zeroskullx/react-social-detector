@@ -7,6 +7,51 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.1.0] - 2025-08-04
+
+### Added
+
+- 🎨 **SocialIcon Component**: New React component for displaying social media icons
+  - SVG-based icons for 37+ platforms
+  - Simple and rounded icon variants
+  - Customizable colors, sizes, and backgrounds
+  - Full TypeScript support and accessibility features
+- 🧪 **Comprehensive Testing Suite**: Added 65+ test cases with near 100% coverage
+  - Integration tests for cross-platform detection
+  - Component tests for SocialIcon with accessibility validation
+  - Hook tests with advanced scenarios and error handling
+  - Performance benchmarking tests
+  - Utility function validation tests
+- 📚 **Complete Documentation Overhaul**:
+  - English translation of all documentation
+  - Comprehensive API documentation with TypeScript interfaces
+  - Detailed examples and usage guides
+  - Performance metrics and benchmarks
+  - FAQ section and troubleshooting guides
+- 🗃️ **JSON Pattern Database**: Migrated social network patterns to JSON format
+  - Better maintainability and extensibility
+  - Separated icons and patterns into dedicated databases
+  - Enhanced pattern validation and testing
+- 🛠️ **Enhanced Developer Experience**:
+  - VSCode configuration with optimized settings
+  - Improved Biome linting and formatting rules
+  - Better project structure with modular architecture
+
+### Changed
+
+- 🏗️ **Architecture Improvements**: Restructured codebase with `/lib` directory for core logic
+- 📦 **Build Optimization**: Enhanced Rollup configuration for better tree-shaking
+- 🎯 **Type Safety**: Improved TypeScript definitions and interfaces
+- 📖 **Example Files**: Moved examples to dedicated markdown files for better organization
+
+### Performance
+
+- ⚡ **Optimized Detection**: Improved algorithm performance
+  - Simple detection: ~0.1ms
+  - Cached detection: ~0.01ms  
+  - Batch detection (100 items): ~10ms
+  - Username extraction: ~0.05ms
+
 ## [1.0.2] - 2025-08-01
 
 ### Fixed
