@@ -45,10 +45,12 @@ export const socialNetworkUtils = {
 	 */
 	normalizeUrl: (url: string): string => {
 		try {
-			const urlObj = new URL(url.startsWith('http') ? url : `https://${url}`)
+			// If it doesn't start with http, add https
+			const normalizedUrl = url.startsWith('http') ? url : `https://${url}`
+			const urlObj = new URL(normalizedUrl)
 			return urlObj.href.toLowerCase()
 		} catch {
-			return url.toLowerCase()
+			return url // Return original URL if parsing fails
 		}
 	},
 
@@ -56,8 +58,22 @@ export const socialNetworkUtils = {
 	 * Extract domain from URL
 	 */
 	extractDomain: (url: string): string | null => {
+		if (!url?.trim()) return null
+
 		try {
-			const urlObj = new URL(url.startsWith('http') ? url : `https://${url}`)
+			// Check for invalid URLs
+			if (url === 'https://' || url === 'http://') {
+				return null
+			}
+
+			// Simple check for strings that are clearly not URLs
+			if (!(url.startsWith('http') || url.includes('.'))) {
+				return null
+			}
+
+			// If it doesn't start with http, add https
+			const normalizedUrl = url.startsWith('http') ? url : `https://${url}`
+			const urlObj = new URL(normalizedUrl)
 			return urlObj.hostname
 		} catch {
 			return null
@@ -70,16 +86,31 @@ export const socialNetworkUtils = {
 	validateUsername: (username: string, platform: SocialNetworkKey): boolean => {
 		if (!username?.trim()) return false
 
+		const trimmedUsername = username.trim()
+
+		// Special validation for GitHub
+		if (platform === 'github') {
+			// 1-39 characters
+			if (trimmedUsername.length > 39 || trimmedUsername.length < 1)
+				return false
+			// Cannot start or end with hyphen
+			if (trimmedUsername.startsWith('-') || trimmedUsername.endsWith('-'))
+				return false
+			// Cannot have consecutive hyphens
+			if (trimmedUsername.includes('--')) return false
+			// Only alphanumeric and hyphens
+			return /^[a-zA-Z0-9-]+$/.test(trimmedUsername)
+		}
+
 		const platformValidators: Record<string, RegExp> = {
 			twitter: /^[a-zA-Z0-9_]{1,15}$/,
 			instagram: /^[a-zA-Z0-9._]{1,30}$/,
 			tiktok: /^[a-zA-Z0-9._]{1,24}$/,
 			youtube: /^[a-zA-Z0-9._-]{1,30}$/,
 			linkedin: /^[a-zA-Z0-9-]{3,100}$/,
-			github: /^[a-zA-Z0-9]([a-zA-Z0-9-]){0,38}$/,
 			reddit: /^[a-zA-Z0-9_-]{3,20}$/,
 			facebook: /^[a-zA-Z0-9.]{5,50}$/,
-			discord: /^\d{17,19}$/, // Discord user IDs
+			discord: /^\d{18,19}$/, // Discord user IDs are 18-19 digits exactly
 			telegram: /^[a-zA-Z0-9_]{5,32}$/,
 			twitch: /^[a-zA-Z0-9_]{4,25}$/,
 			pinterest: /^[a-zA-Z0-9_]{3,30}$/,
@@ -87,7 +118,7 @@ export const socialNetworkUtils = {
 		}
 
 		const validator = platformValidators[platform]
-		return validator ? validator.test(username.trim()) : true
+		return validator ? validator.test(trimmedUsername) : true
 	},
 
 	/**

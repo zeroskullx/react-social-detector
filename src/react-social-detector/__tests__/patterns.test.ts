@@ -19,6 +19,33 @@ describe('Social Network Patterns', () => {
 				'tiktok',
 				'github',
 				'discord',
+				'telegram',
+				'reddit',
+				'twitch',
+				'pinterest',
+				'medium',
+				'behance',
+				'bluesky',
+				'clubhouse',
+				'devto',
+				'dribbble',
+				'gitlab',
+				'mastodon',
+				'onlyfans',
+				'producthunt',
+				'qq',
+				'quora',
+				'slack',
+				'snapchat',
+				'spotify',
+				'substack',
+				'threads',
+				'tumblr',
+				'vkontakte',
+				'wechat',
+				'weibo',
+				'wikipedia',
+				'whatsapp',
 			]
 
 			requiredPlatforms.forEach((platform) => {
@@ -120,6 +147,99 @@ describe('Social Network Patterns', () => {
 			expect(linkedin.domains.some((regex) => regex.test('linkedin.com'))).toBe(
 				true
 			)
+		})
+
+		it('should have correct Threads configuration', () => {
+			const threads = SOCIAL_NETWORKS_PATTERNS.threads
+
+			expect(threads.displayName).toBe('Threads')
+			expect(threads.exampleDomain).toBe('threads.net')
+			expect(threads.baseUrl).toBe('https://threads.net/@')
+			expect(threads.usernamePrefix).toBe('@')
+			expect(threads.domains.some((regex) => regex.test('threads.net'))).toBe(
+				true
+			)
+		})
+
+		it('should have correct Bluesky configuration', () => {
+			const bluesky = SOCIAL_NETWORKS_PATTERNS.bluesky
+
+			expect(bluesky.displayName).toBe('Bluesky')
+			expect(bluesky.exampleDomain).toBe('bsky.app')
+			expect(bluesky.baseUrl).toBe('https://bsky.app/profile/')
+			expect(bluesky.domains.some((regex) => regex.test('bsky.app'))).toBe(true)
+			expect(bluesky.domains.some((regex) => regex.test('bsky.social'))).toBe(
+				true
+			)
+		})
+
+		it('should have correct TikTok configuration', () => {
+			const tiktok = SOCIAL_NETWORKS_PATTERNS.tiktok
+
+			expect(tiktok.displayName).toBe('TikTok')
+			expect(tiktok.exampleDomain).toBe('tiktok.com')
+			expect(tiktok.baseUrl).toBe('https://tiktok.com/@')
+			expect(tiktok.usernamePrefix).toBe('@')
+			expect(tiktok.domains.some((regex) => regex.test('tiktok.com'))).toBe(
+				true
+			)
+		})
+
+		it('should have correct Discord configuration', () => {
+			const discord = SOCIAL_NETWORKS_PATTERNS.discord
+
+			expect(discord.displayName).toBe('Discord')
+			expect(discord.exampleDomain).toBe('discord.com')
+			expect(discord.baseUrl).toBe('https://discord.com/users/')
+			expect(discord.domains.some((regex) => regex.test('discord.com'))).toBe(
+				true
+			)
+		})
+	})
+
+	describe('New Platform Domain Patterns', () => {
+		it('should match modern social platform domains', () => {
+			const modernPlatformTests = [
+				{ platform: 'threads', domain: 'threads.net', shouldMatch: true },
+				{ platform: 'bluesky', domain: 'bsky.app', shouldMatch: true },
+				{ platform: 'bluesky', domain: 'bsky.social', shouldMatch: true },
+				{ platform: 'mastodon', domain: 'mastodon.social', shouldMatch: true },
+				{ platform: 'mastodon', domain: 'mastodon.world', shouldMatch: true },
+				{ platform: 'substack', domain: 'substack.com', shouldMatch: true },
+				{
+					platform: 'clubhouse',
+					domain: 'joinclubhouse.com',
+					shouldMatch: true,
+				},
+				{ platform: 'devto', domain: 'dev.to', shouldMatch: true },
+
+				// Negative tests
+				{ platform: 'threads', domain: 'twitter.com', shouldMatch: false },
+				{ platform: 'bluesky', domain: 'twitter.com', shouldMatch: false },
+			]
+
+			modernPlatformTests.forEach(({ platform, domain, shouldMatch }) => {
+				const pattern = SOCIAL_NETWORKS_PATTERNS[platform as SocialNetworkKey]
+				const matches = pattern.domains.some((regex) => regex.test(domain))
+				expect(matches).toBe(shouldMatch)
+			})
+		})
+
+		it('should match international social platforms', () => {
+			const internationalTests = [
+				{ platform: 'weibo', domain: 'weibo.com', shouldMatch: true },
+				{ platform: 'weibo', domain: 'weibo.cn', shouldMatch: true },
+				{ platform: 'wechat', domain: 'wechat.com', shouldMatch: true },
+				{ platform: 'qq', domain: 'qq.com', shouldMatch: true },
+				{ platform: 'vkontakte', domain: 'vk.com', shouldMatch: true },
+				{ platform: 'vkontakte', domain: 'vkontakte.com', shouldMatch: true },
+			]
+
+			internationalTests.forEach(({ platform, domain, shouldMatch }) => {
+				const pattern = SOCIAL_NETWORKS_PATTERNS[platform as SocialNetworkKey]
+				const matches = pattern.domains.some((regex) => regex.test(domain))
+				expect(matches).toBe(shouldMatch)
+			})
 		})
 	})
 

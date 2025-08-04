@@ -1,6 +1,7 @@
-import { forwardRef } from 'react'
+// biome-ignore lint: noUnusedImports
+import React, { forwardRef } from 'react'
 
-import type { SocialNetworkKey } from '@/react-social-detector/patterns'
+import type { SocialNetworkKey } from '../../patterns'
 import { type IconDBKeys, iconsData } from './iconsData'
 
 /**
