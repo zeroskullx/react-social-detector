@@ -2,9 +2,10 @@
 
 import type React from 'react'
 import { useState } from 'react'
+
+import { SocialIcon, socialNetworkUtils } from '@/react-social-detector'
 import {
 	type SocialNetworkKey,
-	SocialNetworkUtils,
 	useReactSocialDetector,
 } from '../react-social-detector'
 import styles from './reactSocialDetectorDemo.module.css'
@@ -12,6 +13,7 @@ import styles from './reactSocialDetectorDemo.module.css'
 const ReactSocialDetectorDemo: React.FC = () => {
 	const [inputUrl, setInputUrl] = useState('')
 	const [username, setUsername] = useState('')
+	const [iconType, setIconType] = useState<'rounded' | undefined>(undefined)
 
 	const {
 		result,
@@ -93,62 +95,110 @@ const ReactSocialDetectorDemo: React.FC = () => {
 			{result && (
 				<div className={styles.card}>
 					<h3>Detection Result</h3>
+
 					<div className={styles.resultGrid}>
-						<div>
-							<strong>Platform:</strong>{' '}
-							<span className={result.isValid ? styles.valid : styles.invalid}>
-								{result.displayName || result.platform}
-							</span>
-						</div>
-						<div>
-							<strong>Valid:</strong>{' '}
-							<span
-								className={
-									result.isValid ? styles.validText : styles.invalidText
-								}
-							>
-								{result.isValid ? 'Yes' : 'No'}
-							</span>
-						</div>
-						<div>
-							<strong>Confidence:</strong>{' '}
-							<span className={styles[`${result.confidence}Text`]}>
-								{result.confidence}
-							</span>
-						</div>
-						<div>
-							<strong>Method:</strong>{' '}
-							<span className={styles.muted}>
-								{result.detectionMethod.replace('_', ' ')}
-							</span>
-						</div>
-						{result.normalizedUrl && (
-							<div className={styles.fullWidth}>
-								<strong>Generated URL:</strong>{' '}
-								<a
-									href={result.normalizedUrl}
-									target="_blank"
-									rel="noopener noreferrer"
-								>
-									{result.normalizedUrl}
-								</a>
+						<div className={styles.resultGrid_row}>
+							<div className={styles.info_platform}>
+								<strong>Platform:</strong>{' '}
+								<div className={result.isValid ? styles.valid : styles.invalid}>
+									<SocialIcon
+										platform={result.platform}
+										pathColor="#fff"
+										width={22}
+										height={22}
+									/>
+									<span>{result.displayName || result.platform}</span>
+								</div>
 							</div>
-						)}
+
+							<div>
+								<strong>Valid:</strong>{' '}
+								<span
+									className={
+										result.isValid ? styles.validText : styles.invalidText
+									}
+								>
+									{result.isValid ? 'Yes' : 'No'}
+								</span>
+							</div>
+						</div>
+
+						<div className={styles.resultGrid_row}>
+							<div>
+								<strong>Confidence:</strong>{' '}
+								<span className={styles[`${result.confidence}Text`]}>
+									{result.confidence}
+								</span>
+							</div>
+
+							<div>
+								<strong>Method:</strong>{' '}
+								<span className={styles.muted}>
+									{result.detectionMethod.replace('_', ' ')}
+								</span>
+							</div>
+						</div>
+
+						<div className={styles.resultGrid_row}>
+							{result.normalizedUrl && (
+								<div>
+									<strong>Generated URL:</strong>{' '}
+									<a
+										href={result.normalizedUrl}
+										target="_blank"
+										rel="noopener noreferrer"
+									>
+										{result.normalizedUrl}
+									</a>
+								</div>
+							)}
+						</div>
 					</div>
 				</div>
 			)}
 
 			<div className={styles.supported}>
-				<h3>Supported Platforms ({supportedPlatforms.length})</h3>
-				<div className={styles.platformGrid}>
-					{supportedPlatforms.map(({ key, displayName, exampleDomain }) => (
-						<div
-							key={key}
-							onClick={() => setInputUrl(`https://${exampleDomain}`)}
+				<div className={styles.supported_header}>
+					<h3>Supported Platforms ({supportedPlatforms.length})</h3>
+
+					<div className={styles.inputGroup}>
+						<label htmlFor="icon-type-select">Icon Type:</label>
+						<select
+							id="icon-type-select"
+							value={iconType || ''}
+							onChange={(e) =>
+								setIconType(
+									e.target.value === ''
+										? undefined
+										: (e.target.value as 'rounded')
+								)
+							}
 						>
-							{displayName}
-						</div>
-					))}
+							<option value="">Default</option>
+							<option value="rounded">Rounded</option>
+						</select>
+					</div>
+				</div>
+
+				<div className={styles.platformGrid}>
+					{supportedPlatforms.map(({ key, displayName, exampleDomain }) => {
+						return (
+							<div
+								key={key}
+								className={styles.platform_icon}
+								onClick={() => setInputUrl(`https://${exampleDomain}`)}
+							>
+								<SocialIcon
+									width={24}
+									height={24}
+									platform={key}
+									pathColor={iconType === 'rounded' ? '#ffffff' : '#eeeb2c'}
+									type={iconType}
+								/>
+								<span>{displayName}</span>
+							</div>
+						)
+					})}
 				</div>
 			</div>
 
@@ -156,22 +206,21 @@ const ReactSocialDetectorDemo: React.FC = () => {
 				<h3>Utility Functions</h3>
 				<code>
 					isPlatformSupported('instagram'):{' '}
-					{SocialNetworkUtils.isPlatformSupported('instagram').toString()}
+					{socialNetworkUtils.isPlatformSupported('instagram').toString()}
 				</code>
 				<code>
 					getPlatformDisplayName('instagram'):{' '}
-					{SocialNetworkUtils.getPlatformDisplayName('instagram')}
+					{socialNetworkUtils.getPlatformDisplayName('instagram')}
 				</code>
 				<code>
 					extractDomain('https://instagram.com/test'):{' '}
-					{SocialNetworkUtils.extractDomain('https://instagram.com/test')}
+					{socialNetworkUtils.extractDomain('https://instagram.com/test')}
 				</code>
 				<code>
 					validateUsername('testuser', 'instagram'):{' '}
-					{SocialNetworkUtils.validateUsername(
-						'testuser',
-						'instagram'
-					).toString()}
+					{socialNetworkUtils
+						.validateUsername('testuser', 'instagram')
+						.toString()}
 				</code>
 			</div>
 		</div>

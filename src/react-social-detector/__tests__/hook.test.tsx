@@ -1,6 +1,6 @@
 import { act, renderHook } from '@testing-library/react'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
-import type { ReactSocialDetectionResult } from '../detector'
+
 import type {
 	BulkDetectionItem,
 	UseReactSocialDetectorOptions,
@@ -43,54 +43,40 @@ describe('useReactSocialDetector Hook', () => {
 		it('should detect Instagram URL successfully', async () => {
 			const { result } = renderHook(() => useReactSocialDetector())
 
-			let detectionPromise: Promise<ReactSocialDetectionResult>
-
-			act(() => {
-				detectionPromise = result.current.detect(
+			await act(async () => {
+				const detectionResult = await result.current.detect(
 					'https://instagram.com/testuser'
 				)
+				expect(detectionResult.platform).toBe('instagram')
+				expect(detectionResult.isValid).toBe(true)
 			})
-
-			const detectionResult = await detectionPromise!
-
-			expect(detectionResult.platform).toBe('instagram')
-			expect(detectionResult.isValid).toBe(true)
 		})
 
 		it('should handle detection with username', async () => {
 			const { result } = renderHook(() => useReactSocialDetector())
 
-			let detectionPromise: Promise<ReactSocialDetectionResult>
-
-			act(() => {
-				detectionPromise = result.current.detect(
+			await act(async () => {
+				const detectionResult = await result.current.detect(
 					'https://instagram.com',
 					'testuser'
 				)
+				expect(detectionResult.normalizedUrl).toBe(
+					'https://instagram.com/testuser'
+				)
 			})
-
-			const detectionResult = await detectionPromise!
-
-			expect(detectionResult.normalizedUrl).toBe(
-				'https://instagram.com/testuser'
-			)
 		})
 
 		it('should handle detection errors', async () => {
 			const { result } = renderHook(() => useReactSocialDetector())
 
-			let caughtError: Error | null = null
-
-			act(() => {
-				result.current.detect('').catch((err: Error) => {
-					caughtError = err
-				})
+			await act(async () => {
+				try {
+					await result.current.detect('')
+				} catch (error) {
+					expect(error).toBeInstanceOf(Error)
+				}
 			})
 
-			// Wait for the promise to resolve/reject
-			await new Promise((resolve) => setTimeout(resolve, 100))
-
-			expect(caughtError).toBeInstanceOf(Error)
 			expect(result.current.error).toContain('required')
 		})
 	})
@@ -264,7 +250,7 @@ describe('useBulkReactSocialDetector Hook', () => {
 
 			expect(results).toHaveLength(4)
 			// All should be processed, just in smaller concurrent batches
-			expect(results.every((r: any) => r.result.isValid)).toBe(true)
+			expect(results.every((r) => r.result.isValid)).toBe(true)
 		})
 	})
 

@@ -1,9 +1,9 @@
+import type { SocialNetworkKey } from '../assets/patterns'
 import type {
 	DetectionOptions,
 	PlatformInfo,
 	ReactSocialDetectionResult,
-} from '../detector'
-import type { SocialNetworkKey } from '../patterns'
+} from '../lib/types'
 
 // Hook Configuration Types
 export interface UseReactSocialDetectorOptions extends DetectionOptions {

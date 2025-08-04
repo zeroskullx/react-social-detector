@@ -1,5 +1,6 @@
 import { readFileSync } from 'node:fs';
 import commonjs from '@rollup/plugin-commonjs';
+import json from '@rollup/plugin-json';
 import { nodeResolve } from '@rollup/plugin-node-resolve';
 import terser from '@rollup/plugin-terser';
 import typescript from '@rollup/plugin-typescript';
@@ -27,11 +28,19 @@ const commonPlugins = [
     preferBuiltins: true,
   }),
   commonjs(),
+  json(),
   typescript({
     tsconfig: './tsconfig.json',
     declaration: false,
     declarationMap: false,
+		// This option is necessary to ensure that the types are written to the filesystem
+		// instead of being bundled into the output files.
+		// Ensure types are generated
+		outputToFilesystem: true,
     sourceMap: true,
+    jsx: 'react-jsx',
+    include: ['src/**/*'],
+    exclude: ['**/*.test.*', '**/*.spec.*'],
   }),
 ];
 

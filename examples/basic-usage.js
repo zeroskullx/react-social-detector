@@ -5,12 +5,12 @@ const {
 	quickReactSocialDetector,
 	ReactSocialDetector,
 	reactSocialDetector,
-	SocialNetworkUtils,
+	socialNetworkUtils,
 	SOCIAL_NETWORKS_PATTERNS,
 } = require('react-social-detector')
 
 // For ES Modules
-// import { quickReactSocialDetector, ReactSocialDetector, reactSocialDetector, SocialNetworkUtils, SOCIAL_NETWORKS_PATTERNS } from 'react-social-detector';
+// import { quickReactSocialDetector, ReactSocialDetector, reactSocialDetector, socialNetworkUtils, SOCIAL_NETWORKS_PATTERNS } from 'react-social-detector';
 
 console.log('🔍 React Social Detector - Basic Usage Examples\n')
 
@@ -42,7 +42,7 @@ console.log('')
 
 // Example 3: Get supported platforms using utils
 console.log('📍 Example 3: Supported Platforms')
-const platforms = SocialNetworkUtils.getAllPlatforms()
+const platforms = socialNetworkUtils.getAllPlatforms()
 console.log(`Total supported platforms: ${platforms.length}`)
 console.log(
 	'First 10 platforms:',
@@ -92,9 +92,9 @@ console.log('📍 Example 6: Platform Support Checks')
 const platformsToCheck = ['instagram', 'tiktok', 'unknown-platform']
 
 platformsToCheck.forEach((platform) => {
-	const isSupported = SocialNetworkUtils.isPlatformSupported(platform)
+	const isSupported = socialNetworkUtils.isPlatformSupported(platform)
 	const displayName = isSupported
-		? SocialNetworkUtils.getPlatformDisplayName(platform)
+		? socialNetworkUtils.getPlatformDisplayName(platform)
 		: 'N/A'
 	console.log(
 		`${platform}: ${isSupported ? `✅ ${displayName}` : '❌ Not supported'}`

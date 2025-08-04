@@ -55,11 +55,11 @@
     "url": "https://github.com/zeroskullx/react-social-detector/issues"
   },
   "homepage": "https://github.com/zeroskullx/react-social-detector#readme",
-  "dependencies": {},
   "devDependencies": {
     "@biomejs/biome": "^2.1.3",
     "@eslint/eslintrc": "^3.3.1",
     "@rollup/plugin-commonjs": "^28.0.6",
+    "@rollup/plugin-json": "^6.1.0",
     "@rollup/plugin-node-resolve": "^16.0.1",
     "@rollup/plugin-terser": "^0.4.4",
     "@rollup/plugin-typescript": "^12.1.4",
@@ -74,13 +74,13 @@
     "@vitest/ui": "^3.2.4",
     "husky": "^9.1.7",
     "jsdom": "^26.1.0",
-    "lint-staged": "^16.1.2",
+    "lint-staged": "^16.1.4",
     "next": "15.4.5",
     "react": "19.1.1",
     "react-dom": "19.1.1",
     "rollup": "^4.46.2",
     "rollup-plugin-dts": "^6.2.1",
-    "typescript": "^5.8.3",
+    "typescript": "^5.9.2",
     "vite": "^7.0.6",
     "vitest": "^3.2.4"
   },
@@ -91,7 +91,7 @@
     "node": ">=18.0.0",
     "pnpm": ">=8.0.0"
   },
-  "packageManager": "pnpm@9.0.0",
+  "packageManager": "pnpm@10.14.0",
   "lint-staged": {
     "src/**/*.{ts,tsx,js,jsx}": [
       "biome check --write",

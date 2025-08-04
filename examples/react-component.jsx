@@ -52,9 +52,10 @@ function SocialNetworkDetector() {
 							borderRadius: '4px',
 							fontSize: '14px',
 						}}
-						onKeyPress={(e) => e.key === 'Enter' && handleDetection()}
+						onKeyDown={(e) => e.key === 'Enter' && handleDetection()}
 					/>
 					<button
+						type="button"
 						onClick={handleDetection}
 						disabled={!inputUrl.trim() || isLoading}
 						style={{
@@ -70,6 +71,7 @@ function SocialNetworkDetector() {
 						{isLoading ? 'Detecting...' : 'Detect'}
 					</button>
 					<button
+						type="button"
 						onClick={handleClear}
 						style={{
 							padding: '10px 20px',
@@ -148,24 +150,28 @@ function SocialNetworkDetector() {
 			<div>
 				<h3>Try these examples:</h3>
 				<div style={{ display: 'grid', gap: '5px' }}>
-					{urlExamples.map((url, index) => (
-						<button
-							key={index}
-							onClick={() => setInputUrl(url)}
-							style={{
-								padding: '8px 12px',
-								border: '1px solid #007bff',
-								backgroundColor: 'white',
-								color: '#007bff',
-								borderRadius: '4px',
-								cursor: 'pointer',
-								fontSize: '12px',
-								textAlign: 'left',
-							}}
-						>
-							{url}
-						</button>
-					))}
+					{urlExamples.map((url, index) => {
+						const key = `example-url-${index}`
+						return (
+							<button
+								type="button"
+								key={key}
+								onClick={() => setInputUrl(url)}
+								style={{
+									padding: '8px 12px',
+									border: '1px solid #007bff',
+									backgroundColor: 'white',
+									color: '#007bff',
+									borderRadius: '4px',
+									cursor: 'pointer',
+									fontSize: '12px',
+									textAlign: 'left',
+								}}
+							>
+								{url}
+							</button>
+						)
+					})}
 				</div>
 			</div>
 
