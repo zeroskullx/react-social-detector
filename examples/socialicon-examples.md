@@ -367,10 +367,10 @@ const brandColors = {
 ```tsx
 <SocialIcon
   platform="instagram"
+  ariaLabel="Follow on Instagram"
   width={24}
   height={24}
   divProps={{
-    "aria-label": "Follow on Instagram",
     role: "button",
     tabIndex: 0,
   }}

@@ -10,9 +10,20 @@ import { type IconDBKeys, iconsData } from './types'
  * @property pathColor - The color of the icon path.
  * @property height - The height of the icon.
  * @property width - The width of the icon.
+ * @property type - The type of icon, e.g., 'rounded'.
+ * @property divProps - Additional props for the container div.
+ * @property ariaLabel - ARIA label for accessibility.
+ *
+ * @example
+ * <SocialIcon platform="instagram" pathColor="#ff0000" width={24} height={24} type="rounded" />
+ * @example
+ * <SocialIcon platform="unknown" ariaLabel="Unknown social icon" />
+ *
+ * @see {@link https://github.com/zeroskullx/react-social-detector/blob/main/examples/socialicon-examples.md}
  */
 export type SocialIconProps = {
 	platform?: SocialNetworkKey | 'unknown'
+	ariaLabel?: string
 	pathColor?: string
 	height?: string | number
 	width?: string | number
@@ -34,6 +45,7 @@ export const SocialIcon = forwardRef<HTMLDivElement, SocialIconProps>(
 			pathColor,
 			type: iconType,
 			divProps,
+			ariaLabel,
 		} = props
 
 		const newWidth = width || '1rem'
@@ -43,6 +55,8 @@ export const SocialIcon = forwardRef<HTMLDivElement, SocialIconProps>(
 			iconsData[platform as IconDBKeys] || iconsData.default
 
 		const fillColor = pathColor || color
+
+		const _ariaLabel = ariaLabel || `${platform || 'unknown'} social icon`
 
 		if (iconType === 'rounded') {
 			return (
@@ -60,7 +74,8 @@ export const SocialIcon = forwardRef<HTMLDivElement, SocialIconProps>(
 				>
 					<Icon
 						path={path}
-						ariaLabel={platform || ''}
+						title={`${platform} social icon`}
+						ariaLabel={_ariaLabel}
 						fillColor={fillColor}
 						viewBox={viewBox}
 						height={newHeight}
@@ -73,7 +88,8 @@ export const SocialIcon = forwardRef<HTMLDivElement, SocialIconProps>(
 		return (
 			<Icon
 				path={path}
-				ariaLabel={platform || ''}
+				title={`${platform} social icon`}
+				ariaLabel={_ariaLabel || ''}
 				fillColor={fillColor}
 				viewBox={viewBox}
 				height={newHeight}
@@ -85,6 +101,7 @@ export const SocialIcon = forwardRef<HTMLDivElement, SocialIconProps>(
 
 type IconProps = {
 	path: string
+	title: string
 	ariaLabel?: string
 	fillColor?: string
 	viewBox?: string
@@ -93,7 +110,7 @@ type IconProps = {
 }
 
 const Icon = (props: IconProps) => {
-	const { ariaLabel, fillColor, viewBox, height, width, path } = props
+	const { ariaLabel, fillColor, viewBox, height, width, path, title } = props
 
 	const social_svg_g = {
 		transition: 'fill 170ms ease-in-out',
@@ -103,7 +120,7 @@ const Icon = (props: IconProps) => {
 		<svg
 			xmlns="http://www.w3.org/2000/svg"
 			role="img"
-			aria-label={`${ariaLabel} social icon`}
+			aria-label={ariaLabel}
 			className="social-svg"
 			//stroke="currentColor"
 			fill={fillColor || 'currentColor'}
@@ -115,7 +132,7 @@ const Icon = (props: IconProps) => {
 				...social_svg_g,
 			}}
 		>
-			<title>{`${ariaLabel} social icon`}</title>
+			<title>{title}</title>
 
 			<path d={path} />
 		</svg>

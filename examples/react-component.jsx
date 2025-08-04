@@ -52,7 +52,7 @@ function SocialNetworkDetector() {
 							borderRadius: '4px',
 							fontSize: '14px',
 						}}
-						onKeyPress={(e) => e.key === 'Enter' && handleDetection()}
+						onKeyDown={(e) => e.key === 'Enter' && handleDetection()}
 					/>
 					<button
 						type="button"

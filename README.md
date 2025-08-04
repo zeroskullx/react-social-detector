@@ -151,6 +151,7 @@ React component for displaying SVG social media icons.
 ```typescript
 interface SocialIconProps {
   platform?: SocialNetworkKey | "unknown";
+  ariaLabel?: string;
   pathColor?: string; // Icon path color
   height?: string | number; // Icon height
   width?: string | number; // Icon width

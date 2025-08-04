@@ -12,7 +12,7 @@ describe('SocialIcon Component', () => {
 
 			const icon = screen.getByRole('img')
 			expect(icon).toBeInTheDocument()
-			expect(icon).toHaveAttribute('aria-label', ' social icon')
+			expect(icon).toHaveAttribute('aria-label', 'unknown social icon')
 		})
 
 		it('should render specific platform icon', () => {
@@ -135,6 +135,13 @@ describe('SocialIcon Component', () => {
 
 			const icon = screen.getByRole('img')
 			expect(icon).toHaveAttribute('aria-label', 'github social icon')
+		})
+
+		it('should have custom proper aria-label', () => {
+			render(<SocialIcon platform="github" ariaLabel="Custom GitHub Icon" />)
+
+			const icon = screen.getByRole('img')
+			expect(icon).toHaveAttribute('aria-label', 'Custom GitHub Icon')
 		})
 
 		it('should have title element', () => {
