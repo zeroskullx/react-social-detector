@@ -194,7 +194,6 @@ const ReactSocialDetectorDemo: React.FC = () => {
 									platform={key}
 									pathColor={iconType === 'rounded' ? '#ffffff' : '#eeeb2c'}
 									type={iconType}
-									//divProps={{ backgroundColor: '#020202' }}
 								/>
 								<span>{displayName}</span>
 							</div>

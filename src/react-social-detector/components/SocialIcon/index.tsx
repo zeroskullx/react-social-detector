@@ -122,7 +122,6 @@ const Icon = (props: IconProps) => {
 			role="img"
 			aria-label={ariaLabel}
 			className="social-svg"
-			//stroke="currentColor"
 			fill={fillColor || 'currentColor'}
 			strokeWidth="0"
 			viewBox={viewBox || '0 0 64 64'}
