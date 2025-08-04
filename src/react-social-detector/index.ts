@@ -10,6 +10,8 @@ import {
 } from './detector'
 import { socialNetworkUtils } from './utils'
 
+// Components Export
+export { SocialIcon } from './components/SocialIcon'
 // Types Core Export
 export type {
 	DetectionOptions,

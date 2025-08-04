@@ -14,20 +14,6 @@ export interface SocialNetworkPatternProps {
 }
 
 export const SOCIAL_NETWORKS_PATTERNS = {
-	anchor: {
-		domains: [/anchor\.fm$/],
-		baseUrl: 'https://anchor.fm/',
-		displayName: 'Anchor',
-		exampleDomain: 'anchor.fm',
-		allowSubdomains: false,
-	},
-	angellist: {
-		domains: [/angel\.co$/],
-		baseUrl: 'https://angel.co/',
-		displayName: 'AngelList',
-		exampleDomain: 'angel.co',
-		allowSubdomains: false,
-	},
 	behance: {
 		domains: [/behance\.net$/],
 		baseUrl: 'https://behance.net/',
