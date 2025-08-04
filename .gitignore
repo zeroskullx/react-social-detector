@@ -46,7 +46,7 @@ dist/
 test-build.mjs
 
 # IDE
-.vscode/
+# .vscode/
 .idea/
 *.swp
 *.swo
