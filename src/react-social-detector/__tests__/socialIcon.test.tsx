@@ -1,6 +1,5 @@
+import '@testing-library/jest-dom'
 import { render, screen } from '@testing-library/react'
-// biome-ignore lint: noUnusedImports
-import React from 'react'
 import { describe, expect, it, vi } from 'vitest'
 
 import { SocialIcon } from '../components/SocialIcon'

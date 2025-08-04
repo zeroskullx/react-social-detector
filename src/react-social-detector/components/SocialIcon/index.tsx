@@ -1,5 +1,5 @@
-// biome-ignore lint: noUnusedImports
-import React, { forwardRef } from 'react'
+/** @jsxImportSource react */
+import { forwardRef } from 'react'
 
 import type { SocialNetworkKey } from '../../patterns'
 import { type IconDBKeys, iconsData } from './iconsData'

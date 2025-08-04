@@ -1,5 +1,5 @@
 import { render, screen, waitFor } from '@testing-library/react'
-import React from 'react'
+import { useEffect } from 'react'
 import { describe, expect, it } from 'vitest'
 
 import { useBulkReactSocialDetector } from '../hooks/useBulkReactSocialDetector'
@@ -9,7 +9,7 @@ import { useReactSocialDetector } from '../hooks/useReactSocialDetector'
 function TestDetectorComponent({ url }: { url: string }) {
 	const { detect, result, isDetecting, error } = useReactSocialDetector()
 
-	React.useEffect(() => {
+	useEffect(() => {
 		if (url) {
 			detect(url)
 		}
@@ -28,7 +28,7 @@ function TestDetectorComponent({ url }: { url: string }) {
 function TestBulkDetectorComponent({ urls }: { urls: string[] }) {
 	const { detectBulk, results, isDetecting } = useBulkReactSocialDetector()
 
-	React.useEffect(() => {
+	useEffect(() => {
 		if (urls.length > 0) {
 			const items = urls.map((url, index) => ({
 				id: `test-${index}`,
