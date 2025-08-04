@@ -33,6 +33,10 @@ const commonPlugins = [
     tsconfig: './tsconfig.json',
     declaration: false,
     declarationMap: false,
+		// This option is necessary to ensure that the types are written to the filesystem
+		// instead of being bundled into the output files.
+		// Ensure types are generated
+		outputToFilesystem: true,
     sourceMap: true,
     jsx: 'react-jsx',
     include: ['src/**/*'],

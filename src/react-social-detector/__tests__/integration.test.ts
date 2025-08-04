@@ -8,7 +8,7 @@ import {
 	quickReactSocialDetector,
 	ReactSocialDetector,
 	reactSocialDetector,
-} from '../detector'
+} from '../lib/detector'
 
 describe('Integration Tests', () => {
 	describe('Cross-Platform Detection', () => {

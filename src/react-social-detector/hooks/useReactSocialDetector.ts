@@ -1,10 +1,8 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 
 import type { SocialNetworkKey } from '../assets/patterns'
-import {
-	type ReactSocialDetectionResult,
-	reactSocialDetector,
-} from '../detector'
+import { reactSocialDetector } from '../lib/detector'
+import type { ReactSocialDetectionResult } from '../lib/types'
 import type {
 	UseReactSocialDetectorOptions,
 	UseReactSocialDetectorReturn,

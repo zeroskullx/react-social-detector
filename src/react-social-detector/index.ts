@@ -7,7 +7,7 @@ import {
 	quickReactSocialDetector,
 	ReactSocialDetector,
 	reactSocialDetector,
-} from './detector'
+} from './lib/detector'
 import { socialNetworkUtils } from './utils'
 
 // Types Pattern Export
@@ -17,18 +17,6 @@ export type {
 } from './assets/patterns'
 // Components Export
 export { SocialIcon } from './components/SocialIcon'
-// Types Core Export
-export type {
-	DetectionOptions,
-	PlatformInfo,
-	ReactSocialDetectionResult,
-} from './detector'
-// Core exports
-export {
-	quickReactSocialDetector,
-	ReactSocialDetector,
-	reactSocialDetector,
-} from './detector'
 // Types Hooks Export
 export type {
 	BulkDetectionItem,
@@ -40,6 +28,18 @@ export type {
 } from './hooks/types'
 export { useBulkReactSocialDetector } from './hooks/useBulkReactSocialDetector'
 export { useReactSocialDetector } from './hooks/useReactSocialDetector'
+// Core exports
+export {
+	quickReactSocialDetector,
+	ReactSocialDetector,
+	reactSocialDetector,
+} from './lib/detector'
+// Types Core Export
+export type {
+	DetectionOptions,
+	PlatformInfo,
+	ReactSocialDetectionResult,
+} from './lib/types'
 // Utils Export
 export { socialNetworkUtils } from './utils'
 

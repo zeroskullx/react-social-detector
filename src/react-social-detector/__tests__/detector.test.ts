@@ -1,11 +1,11 @@
 import { beforeEach, describe, expect, it } from 'vitest'
 
 import {
-	type DetectionOptions,
 	quickReactSocialDetector,
 	ReactSocialDetector,
 	reactSocialDetector,
-} from '../detector'
+} from '../lib/detector'
+import type { DetectionOptions } from '../lib/types'
 
 describe('React Social Detector', () => {
 	let detector: ReactSocialDetector

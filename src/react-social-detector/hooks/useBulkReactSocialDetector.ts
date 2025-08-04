@@ -1,6 +1,6 @@
 import { useCallback, useMemo, useState } from 'react'
 
-import { reactSocialDetector } from '../detector'
+import { reactSocialDetector } from '../lib/detector'
 import type {
 	BulkDetectionItem,
 	BulkDetectionResult,

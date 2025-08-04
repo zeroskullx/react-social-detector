@@ -3,7 +3,7 @@ import type {
 	DetectionOptions,
 	PlatformInfo,
 	ReactSocialDetectionResult,
-} from '../detector'
+} from '../lib/types'
 
 // Hook Configuration Types
 export interface UseReactSocialDetectorOptions extends DetectionOptions {
