@@ -40,7 +40,7 @@ Batch detection (100 items): ~10ms
 Username extraction: ~0.05ms
 ```
 
-## 📦 Instalação
+## 📦 Install
 
 ```bash
 # npm
