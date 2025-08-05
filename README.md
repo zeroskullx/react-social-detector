@@ -2,6 +2,8 @@
 
 ✨ **Detect and validate social media URLs with ease and precision! A modern, complete TypeScript library with native React support.**
 
+![React Social Detector V.1](/public/image/rsd.png)
+
 ## 🎯 Why Use It?
 
 Ever needed to identify which social network a URL belongs to? Extract usernames? Generate standardized URLs? React Social Detector solves all these problems with a simple and powerful API.
@@ -240,10 +242,7 @@ The library uses multiple methods for maximum accuracy:
 
 ### How to add a new social network?
 
-1. Add the pattern in `/src/react-social-detector/assets/patterns-db.json`
-2. Implement validation rules if necessary
-3. Add the SVG icon in `/src/react-social-detector/assets/icons-db.json`
-4. Run tests to verify
+Yes! Contributing and opening a pull request... is easy! ☺️
 
 ### Does the SocialIcon component support custom icons?
 
@@ -280,7 +279,10 @@ Suggestions for new networks are welcome! Follow the pattern:
 
 To add support for a new social network:
 
-1. Add patterns in `patterns-db.json`:
+1. Add the pattern in `/src/react-social-detector/assets/patterns-db.json`
+2. Implement validation rules if necessary
+3. Add the SVG icon in `/src/react-social-detector/assets/icons-db.json`
+4. Run tests to verify
 
 ```json
 {
